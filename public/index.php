@@ -22,6 +22,7 @@ use App\Infrastructure\Persistence\DatabaseConnection;
 use App\Infrastructure\Persistence\PdoStoreRepository;
 use App\Infrastructure\Persistence\PdoUserRepository;
 use App\Infrastructure\Security\JwtService;
+use App\Shared\Config\ConfigFactory;
 use App\Shared\Exception\HttpException;
 use App\Shared\Exception\ValidationException;
 
@@ -51,7 +52,14 @@ try {
 
 $router = new Router();
 
-$pdo = DatabaseConnection::create(__DIR__ . '/../database/database.sqlite');
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+$config = ConfigFactory::createFromEnv();
+
+$pdo = DatabaseConnection::create(
+    $config->database()
+);
+
 $storeRepository = new PdoStoreRepository($pdo);
 $storeValidator = new StoreValidator();
 
@@ -73,6 +81,11 @@ $router->get('/health', function () {
     return JsonResponse::success(['status' => 'ok']);
 });
 
+
+$router->get('/login', function (Request $request) use ($authController) {
+
+    return JsonResponse::error('Wrong login method' , 404 );
+});
 
 $router->post('/login', function (Request $request) use ($authController) {
     return $authController->login($request);
@@ -133,6 +146,8 @@ try {
         'path' => $request->getPath(),
         'method' => $request->getMethod(),
     ]);
+
+    var_dump($e);
 
     $response = JsonResponse::error('Internal Server Error', 500);
 }
