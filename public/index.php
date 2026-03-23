@@ -26,6 +26,8 @@ use App\Shared\Config\ConfigFactory;
 use App\Shared\Exception\HttpException;
 use App\Shared\Exception\ValidationException;
 
+ini_set('error_reporting' , 1);
+
 $logger = new FileLogger(__DIR__ . '/../storage/logs/app.log');
 
 try {
