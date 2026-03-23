@@ -3,6 +3,7 @@
 namespace App\Application\Service;
 
 use App\Application\DTO\LoginInputDto;
+use App\Application\DTO\LoginOutputDto;
 use App\Infrastructure\Persistence\PdoUserRepository;
 use App\Infrastructure\Security\JwtService;
 use App\Shared\Exception\UnauthorizedException;
@@ -16,7 +17,7 @@ class AuthService
     {
     }
 
-    public function login(LoginInputDto $input): array
+    public function login(LoginInputDto $input): LoginOutputDto
     {
         $user = $this->userRepository->findByUsername($input->username);
 
@@ -28,10 +29,15 @@ class AuthService
             throw new UnauthorizedException('Invalid credentials');
         }
 
-        $token = $this->jwtService->generateToken((int)$user['id'], $user['email']);
+        $token = $this->jwtService->generateToken($user->getId(), $user->getEmail());
 
-        return [
-            'token' => $token,
-        ];
+        return new LoginOutputDto(
+            $user->getId(), $token
+        );
+    }
+
+    private function createToken(User $user): string
+    {
+        return $this->jwtService->generateToken($user->id, $user->email);
     }
 }

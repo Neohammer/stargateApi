@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Http\Controller;
 
 use App\Application\DTO\LoginInputDto;
+use App\Application\DTO\LoginOutputDto;
 use App\Application\Service\AuthService;
 use App\Infrastructure\Http\JsonResponse;
 use App\Infrastructure\Http\Request;
@@ -23,6 +24,11 @@ class AuthController
         );
 
         $result = $this->authService->login($input);
+
+        $output = new LoginOutputDto(
+            $body['username'] ?? '',
+            $body['password'] ?? ''
+        );
 
         return JsonResponse::success($result);
     }
