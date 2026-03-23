@@ -12,5 +12,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="Stargate-sg-1-0.1" />
   </component>
 </module>

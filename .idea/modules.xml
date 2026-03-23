@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../Unity/Stargate/Stargate-sg-1-0.1/.idea/Stargate-sg-1-0.1.iml" filepath="$PROJECT_DIR$/../../../Unity/Stargate/Stargate-sg-1-0.1/.idea/Stargate-sg-1-0.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/StargateApi.iml" filepath="$PROJECT_DIR$/.idea/StargateApi.iml" />
     </modules>
   </component>

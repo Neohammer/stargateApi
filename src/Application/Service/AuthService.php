@@ -18,7 +18,7 @@ class AuthService
 
     public function login(LoginInputDto $input): array
     {
-        $user = $this->userRepository->findByEmail($input->email);
+        $user = $this->userRepository->findByUsername($input->username);
 
         if ($user === null) {
             throw new UnauthorizedException('Invalid credentials');

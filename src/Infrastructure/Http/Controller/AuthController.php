@@ -18,7 +18,7 @@ class AuthController
         $body = $request->getBody();
 
         $input = new LoginInputDto(
-            $body['email'] ?? '',
+            $body['username'] ?? '',
             $body['password'] ?? ''
         );
 

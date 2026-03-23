@@ -10,10 +10,10 @@ class PdoUserRepository
     {
     }
 
-    public function findByEmail(string $email): ?array
+    public function findByUsername(string $username): ?array
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM sg1_user WHERE email = :email');
-        $stmt->execute(['email' => $email]);
+        $stmt = $this->pdo->prepare('SELECT * FROM sg1_user WHERE username = :username');
+        $stmt->execute(['username' => $username]);
 
         $user = $stmt->fetch();
 
