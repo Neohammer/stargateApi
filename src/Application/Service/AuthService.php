@@ -48,16 +48,16 @@ class AuthService
 
     public function register(RegisterInputDto $input): LoginOutputDto
     {
-        if (empty($input->username) || empty($input->email) || empty($input->password)) {
-            throw new BadRequestException('Missing fields');
+        if (trim($input->username) === '' || trim($input->email) === '' || trim($input->password) === '') {
+            throw new BadRequestException('Missing fields', 'MISSING_FIELDS');
         }
 
-        if ($this->userRepository->findByUsername($input->username)) {
-            throw new ConflictException('Username already exists');
+        if ($this->userRepository->findByUsername($input->username) !== null) {
+            throw new ConflictException('Username already exists', 'USERNAME_ALREADY_EXISTS');
         }
 
-        if ($this->userRepository->findByEmail($input->email)) {
-            throw new ConflictException('Email already exists');
+        if ($this->userRepository->findByEmail($input->email) !== null) {
+            throw new ConflictException('Email already exists', 'EMAIL_ALREADY_EXISTS');
         }
 
         // 3. hash password

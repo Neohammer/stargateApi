@@ -38,7 +38,7 @@ try {
         'status' => $e->getStatusCode(),
     ]);
 
-    JsonResponse::error($e->getMessage(), $e->getStatusCode())->send();
+    JsonResponse::error('HTTP_EXCEPTION',  $e->getMessage(), $e->getStatusCode())->send();
     exit;
 } catch (\Throwable $e) {
     $logger->error('Unhandled request parsing exception', [
@@ -47,7 +47,7 @@ try {
         'line' => $e->getLine(),
     ]);
 
-    JsonResponse::error('Internal Server Error', 500)->send();
+    JsonResponse::error('INTERNAL_EXCEPTION',  'Internal Server Error', 500)->send();
     exit;
 }
 
@@ -129,7 +129,7 @@ try {
         'method' => $request->getMethod(),
     ]);
 
-    $response = JsonResponse::error($e->getMessage(), $e->getStatusCode(), $e->getErrors());
+    $response = JsonResponse::error('VALIDATION_EXCEPTION', $e->getMessage(), $e->getStatusCode(), $e->getErrors());
 } catch (HttpException $e) {
     $logger->error('HTTP exception', [
         'message' => $e->getMessage(),
@@ -138,7 +138,7 @@ try {
         'method' => $request->getMethod(),
     ]);
 
-    $response = JsonResponse::error($e->getMessage(), $e->getStatusCode());
+    $response = JsonResponse::error('HTTP_EXCEPTION', $e->getMessage(), $e->getStatusCode());
 } catch (Throwable $e) {
     $logger->error('Unhandled exception', [
         'message' => $e->getMessage(),
@@ -148,7 +148,7 @@ try {
         'method' => $request->getMethod(),
     ]);
 
-    $response = JsonResponse::error('Internal Server Error', 500);
+    $response = JsonResponse::error('INTERNAL_EXCEPTION', 'Internal Server Error', 500);
 }
 
 $response->send();

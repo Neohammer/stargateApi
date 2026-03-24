@@ -24,7 +24,6 @@ class AuthController
             $body['password'] ?? ''
         );
 
-
         $loginOutputDto = $this->authService->login($input);
 
         return JsonResponse::success($loginOutputDto);

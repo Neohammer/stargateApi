@@ -14,9 +14,10 @@ class JsonResponse
         return new self(['data' => $data], $status);
     }
 
-    public static function error(string $message, int $status, array $details = []): self
+    public static function error(string $code, string $message, int $status, array $details = []): self
     {
         return new self([
+            'code' => $code,
             'error' => $message,
             'details' => $details
         ], $status);
