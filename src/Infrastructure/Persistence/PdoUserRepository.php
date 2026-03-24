@@ -18,7 +18,7 @@ class PdoUserRepository
 
         $user = $stmt->fetch();
 
-        return $user ?: null;
+        return $user ? $this->rowToObject($user) : null;
     }
 
     public function findByEmail(string $email): ?User
@@ -28,7 +28,20 @@ class PdoUserRepository
 
         $user = $stmt->fetch();
 
-        return $user ?: null;
+        return $user ? $this->rowToObject($user) : null;
+
+
+    }
+
+    private function rowToObject(array $row): User
+    {
+        return new User(
+            $row['id'],
+            $row['username'],
+            $row['email'],
+            $row['password_hash'],
+            $row['created_at']
+        );
     }
 
     public function create(string $username, string $email, string $passwordHash): User

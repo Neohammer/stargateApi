@@ -46,12 +46,10 @@ class AuthService
 
     public function register(RegisterInputDto $input): LoginOutputDto
     {
-        // 1. validation simple
         if (empty($input->username) || empty($input->email) || empty($input->password)) {
             throw new \InvalidArgumentException('Missing fields');
         }
 
-        // 2. vérifier si user existe déjà
         if ($this->userRepository->findByUsername($input->username)) {
             throw new \RuntimeException('Username already exists');
         }
