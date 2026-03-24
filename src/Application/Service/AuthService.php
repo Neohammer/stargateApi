@@ -8,6 +8,8 @@ use App\Application\DTO\RegisterInputDto;
 use App\Domain\User\Entity\User;
 use App\Infrastructure\Persistence\PdoUserRepository;
 use App\Infrastructure\Security\JwtService;
+use App\Shared\Exception\BadRequestException;
+use App\Shared\Exception\ConflictException;
 use App\Shared\Exception\UnauthorizedException;
 
 class AuthService
@@ -47,15 +49,15 @@ class AuthService
     public function register(RegisterInputDto $input): LoginOutputDto
     {
         if (empty($input->username) || empty($input->email) || empty($input->password)) {
-            throw new \InvalidArgumentException('Missing fields');
+            throw new BadRequestException('Missing fields');
         }
 
         if ($this->userRepository->findByUsername($input->username)) {
-            throw new \RuntimeException('Username already exists');
+            throw new ConflictException('Username already exists');
         }
 
         if ($this->userRepository->findByEmail($input->email)) {
-            throw new \RuntimeException('Email already exists');
+            throw new ConflictException('Email already exists');
         }
 
         // 3. hash password
