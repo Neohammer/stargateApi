@@ -138,7 +138,7 @@ try {
         'method' => $request->getMethod(),
     ]);
 
-    $response = JsonResponse::error('HTTP_EXCEPTION', $e->getMessage(), $e->getStatusCode());
+    $response = JsonResponse::error($e->getErrorCode(), $e->getMessage(), $e->getStatusCode());
 } catch (Throwable $e) {
     $logger->error('Unhandled exception', [
         'message' => $e->getMessage(),
