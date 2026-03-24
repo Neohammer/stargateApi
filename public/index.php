@@ -148,8 +148,6 @@ try {
         'method' => $request->getMethod(),
     ]);
 
-    var_dump($e);
-
     $response = JsonResponse::error('Internal Server Error', 500);
 }
 
