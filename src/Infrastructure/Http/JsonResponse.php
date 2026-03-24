@@ -6,12 +6,16 @@ class JsonResponse
 {
     public function __construct(
         private mixed $data,
-        private int $status = 200
-    ) {}
+        private int   $status = 200
+    )
+    {
+    }
 
     public static function success(mixed $data = null, int $status = 200): self
     {
-        return new self(['data' => $data], $status);
+        return new self([
+            'data' => $data
+        ], $status);
     }
 
     public static function error(string $code, string $message, int $status, array $details = []): self

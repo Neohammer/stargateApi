@@ -131,7 +131,7 @@ try {
 
     $response = JsonResponse::error('VALIDATION_EXCEPTION', $e->getMessage(), $e->getStatusCode(), $e->getErrors());
 } catch (HttpException $e) {
-    $logger->error('HTTP exception', [
+    $logger->error($e->getErrorCode(), [
         'message' => $e->getMessage(),
         'status' => $e->getStatusCode(),
         'path' => $request->getPath(),
