@@ -34,7 +34,7 @@ class User
         return $this->password_hash;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
