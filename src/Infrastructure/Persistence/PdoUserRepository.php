@@ -40,7 +40,7 @@ class PdoUserRepository
             $row['username'],
             $row['email'],
             $row['password_hash'],
-            $row['created_at']
+            new \DateTimeImmutable($row['created_at'])
         );
     }
 
