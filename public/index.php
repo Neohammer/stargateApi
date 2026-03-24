@@ -84,13 +84,12 @@ $router->get('/health', function () {
 });
 
 
-$router->get('/login', function (Request $request) use ($authController) {
-
-    return JsonResponse::error('Wrong login method' , 404 );
-});
 
 $router->post('/login', function (Request $request) use ($authController) {
     return $authController->login($request);
+});
+$router->post('/register', function (Request $request) use ($authController) {
+    return $authController->register($request);
 });
 
 
